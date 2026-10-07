@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block content %}
+<div class="bar">
+<form method="get"><input name="q" value="{{ q }}" placeholder="Search name, email, course"><button>Search</button>
+{% if q %}<a href="{{ url_for('index') }}">Clear</a>{% endif %}</form>
+<a class="btn" href="{{ url_for('add') }}">+ Add Student</a></div>
+<table><tr><th>ID</th><th>Name</th><th>Email</th><th>Course</th><th>Phone</th><th>Actions</th></tr>
+{% for s in students %}<tr><td>{{ s.id }}</td><td>{{ s.name }}</td><td>{{ s.email }}</td><td>{{ s.course }}</td><td>{{ s.phone }}</td>
+<td><a href="{{ url_for('edit', id=s.id) }}">Edit</a>
+<form class="inline" method="post" action="{{ url_for('delete', id=s.id) }}" onsubmit="return confirm('Delete this student?')"><button class="del">Delete</button></form></td></tr>
+{% else %}<tr><td colspan="6">No students found.</td></tr>{% endfor %}</table>
+{% endblock %}
